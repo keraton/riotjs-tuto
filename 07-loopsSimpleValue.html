@@ -1,0 +1,24 @@
+<html>
+<head>
+    <title>Hello Riot.</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+    <!-- place the custom tag anywhere inside the body -->
+    <div class="container">
+        <loopSimpleValue></loopSimpleValue>
+    </div>
+
+    <!-- include the tag -->
+    <script type="riot/tag" src="tag/loopSimpleValue.tag"></script>
+
+    <!-- include riot.js -->
+    <script src="js/lib/riot+compiler.min.js"></script>
+
+    <!-- mount the tag -->
+    <script>
+
+        riot.mount('loopSimpleValue', ["Paris", "New York", "Jakarta"])
+    </script>
+</body>
+</html>

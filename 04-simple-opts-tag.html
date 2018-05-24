@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>Hello Riot.</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+    <!-- place the custom tag anywhere inside the body -->
+    <div class="container">
+        <sampleOpts name="Hi Riot"></sampleOpts>
+    </div>
+
+    <!-- include the tag -->
+    <script type="riot/tag" src="tag/sampleOpts.tag"></script>
+
+    <!-- include riot.js -->
+    <script src="js/lib/riot+compiler.min.js"></script>
+
+    <!-- mount the tag -->
+    <script>
+        riot.mount('sampleOpts', {
+            items : [
+                { name: 'HTML' },
+                { name: 'JavaScript' },
+                { name: 'CSS' }
+            ]
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Hello Riot.</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+    <!-- place the custom tag anywhere inside the body -->
+    <div class="container">
+        <observableTagV2></observableTagV2>
+    </div>
+
+    <!-- include the tag -->
+    <script type="riot/tag" src="tag/observableTagV2.tag"></script>
+
+    <!-- include riot.js -->
+    <script src="js/lib/riot+compiler.min.js"></script>
+
+    <!-- mount the tag -->
+    <script>
+
+        riot.compile(function() {
+            // here tags are compiled and riot.mount works synchronously
+            var tags = riot.mount('observableTagV2', {
+                items : [
+                    { name: 'HTML', odd: true, highlight: true },
+                    { name: 'JavaScript', odd:false },
+                    { name: 'CSS', odd:true, hide:true  }
+                ]
+            });
+
+            tags[0].obs.on('hello', function(greeting) {
+                alert(greeting);
+            })
+        })
+
+
+    </script>
+</body>
+</html>

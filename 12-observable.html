@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Hello Riot.</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+    <!-- place the custom tag anywhere inside the body -->
+    <div class="container">
+        <observableTag></observableTag>
+    </div>
+
+    <!-- include the tag -->
+    <script type="riot/tag" src="tag/observableTag.tag"></script>
+
+    <!-- include riot.js -->
+    <script src="js/lib/riot+compiler.min.js"></script>
+
+    <!-- mount the tag -->
+    <script>
+
+        var EventBus = function(){
+            riot.observable(this)
+        };
+
+        var eventBus = new EventBus();
+
+        riot.mount('observableTag', {
+            items : [
+                { name: 'HTML', odd: true, highlight: true },
+                { name: 'JavaScript', odd:false },
+                { name: 'CSS', odd:true, hide:true  }
+            ],
+            obs : eventBus
+        });
+
+        eventBus.on('hello', function(greeting) {
+            alert(greeting);
+        })
+    </script>
+</body>
+</html>

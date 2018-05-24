@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Hello Riot.</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+
+    <!-- place the custom tag anywhere inside the body -->
+    <div class="container">
+        <mytag></mytag>
+    </div>
+
+    <!-- include riot.js -->
+    <script src="js/lib/riot+compiler.min.js"></script>
+
+    <!-- mount the tag -->
+    <script>
+        var tagSample = "<h1>Inline Tag</h1>";
+        riot.tag("mytag", tagSample);
+        riot.mount('mytag')
+    </script>
+</body>
+</html>

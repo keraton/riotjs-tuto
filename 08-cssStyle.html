@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Hello Riot.</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+    <!-- place the custom tag anywhere inside the body -->
+    <h3>Outside tag</h3>
+
+    <div class="container">
+        <cssStyle></cssStyle>
+    </div>
+
+    <!-- include the tag -->
+    <script type="riot/tag" src="tag/cssStyle.tag"></script>
+
+    <!-- include riot.js -->
+    <script src="js/lib/riot+compiler.min.js"></script>
+
+    <!-- mount the tag -->
+    <script>
+
+        riot.mount('cssStyle', ["Paris", "New York", "Jakarta"])
+    </script>
+</body>
+</html>

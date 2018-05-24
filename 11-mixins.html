@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>Hello Riot.</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+<body>
+    <!-- place the custom tag anywhere inside the body -->
+    <div class="container">
+        <domEventWithMixins></domEventWithMixins>
+    </div>
+
+    <!-- include the tag -->
+    <script type="riot/tag" src="tag/domEventWithMixins.tag"></script>
+
+    <!-- include riot.js -->
+    <script src="js/lib/riot+compiler.min.js"></script>
+
+    <!-- mount the tag -->
+    <script>
+
+        riot.mount('domEventWithMixins', {
+            items : [
+                { name: 'HTML', odd: true, highlight: true },
+                { name: 'JavaScript', odd:false },
+                { name: 'CSS', odd:true, hide:true  }
+            ],
+
+            // Injection dependency ?
+            mixin: function () {
+                    this.showSomething = function () {
+                        alert("Hello")
+                    }
+            }
+        })
+    </script>
+</body>
+</html>

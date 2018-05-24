@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ClojureProjectResolveSettings">
+    <currentScheme>IDE</currentScheme>
+  </component>
+  <component name="EmacsSettings">
+    <option name="emacsPath" value="/usr/bin/emacs" />
+  </component>
+  <component name="PreferredVcsStorage">
+    <preferredVcsName>ApexVCS</preferredVcsName>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_3">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="RebarSettings">
+    <rebarPath>$PROJECT_DIR$/../rebar3/rebar3</rebarPath>
+  </component>
+</project>
