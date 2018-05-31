@@ -1,6 +1,7 @@
 <sampleOpts>
     <h3>{ message }</h3>
     <ul>
+        {description}
         <li each={ techs }>{ name }</li>
     </ul>
 
@@ -8,6 +9,7 @@
 
     <script>
         this.message = this.opts.name;
+        this.description = this.opts.name;
         this.techs = this.opts.items;
     </script>
 

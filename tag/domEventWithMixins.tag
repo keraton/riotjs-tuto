@@ -1,7 +1,7 @@
 <domEventWithMixins>
     <h3>Dom Event</h3>
     <ul>
-        <li each={ techs } onclick="{showSomething}">
+        <li each={ techs } onclick="{hideSomething}">
             { name }
         </li>
     </ul>

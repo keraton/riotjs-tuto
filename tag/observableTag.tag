@@ -12,13 +12,11 @@
 
     <script>
         // refs
-        var self = this;
-
         this.message = 'Hello, Riot!';
         this.techs = this.opts.items;
 
         showSomething (e) {
-            self.opts.obs.trigger('hello', 'Hello from Riot');
+            this.opts.obs.trigger('hello', 'Hello from Riot');
         }
     </script>
 

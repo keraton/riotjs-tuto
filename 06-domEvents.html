@@ -17,14 +17,16 @@
 
     <!-- mount the tag -->
     <script>
-
-        riot.mount('domEvent', {
-            items : [
-                { name: 'HTML', odd: true, highlight: true },
-                { name: 'JavaScript', odd:false },
-                { name: 'CSS', odd:true, hide:true  }
-            ]
-        })
+        riot.compile(function() {
+            var tag = riot.mount('domEvent', {
+                items : [
+                    { name: 'HTML', odd: true, highlight: true },
+                    { name: 'JavaScript', odd:false },
+                    { name: 'CSS', odd:true, hide:true  }
+                ]
+            });
+            console.log(tag);
+        });
     </script>
 </body>
 </html>

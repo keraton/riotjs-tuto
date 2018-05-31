@@ -13,13 +13,11 @@
 
     <script>
         // refs
-        var self = this;
-
         this.message = 'Hello, Riot!'
         this.techs = this.opts.items;
 
         showSomething (e) {
-            self.refs.show.value = "Clicked";
+            this.refs.show.value = "Clicked";
         }
     </script>
 

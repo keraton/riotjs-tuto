@@ -4,24 +4,27 @@
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-    <!-- place the custom tag anywhere inside the body -->
-    <h3>Outside tag</h3>
 
+    <!-- place the custom tag anywhere inside the body -->
     <div class="container">
-        <cssStyle></cssStyle>
+        <todo></todo>
     </div>
 
     <!-- include the tag -->
-    <script type="riot/tag" src="tag/cssStyle.tag"></script>
+    <script type="riot/tag" src="tag/flux.tag"></script>
 
     <!-- include riot.js -->
     <script src="js/lib/riot+compiler.min.js"></script>
+    <script src="js/flux/flux.js"></script>
 
     <!-- mount the tag -->
     <script>
+        var todoStore = new TodoStore();
+        RiotControl.addStore(todoStore);
 
-
-        riot.mount('cssStyle', ["Paris", "New York", "Jakarta"])
+        riot.mount('todo', {
+            store : todoStore
+        })
     </script>
 </body>
 </html>

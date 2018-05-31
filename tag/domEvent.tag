@@ -14,7 +14,7 @@
         this.techs = this.opts.items;
 
         showSomething (e) {
-            alert("hello");
+            alert("hello " + e);
         }
     </script>
 

@@ -1,6 +1,6 @@
 <expression>
     <h3>{ message.toUpperCase() }</h3>
-    <!-- <p>Size of techs : </p> -->
+     <p>Size of techs array : {techs.length} </p>
     <ul>
         <li each={ techs }>{ name }</li>
     </ul>

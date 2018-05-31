@@ -12,8 +12,6 @@
 
     <script>
         // refs
-        var self = this;
-
         var EventBus = function(){
             riot.observable(this)
         };
@@ -26,7 +24,7 @@
         this.techs = this.opts.items;
 
         showSomething (e) {
-            self.obs.trigger('hello', 'Hello from Riot');
+            this.obs.trigger('hello', 'Hello from Riot');
         }
     </script>
 
