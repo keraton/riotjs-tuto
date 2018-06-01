@@ -75,7 +75,7 @@
         this.store = this.opts.store;
 
         this.store.on('UPDATE_VIEW', (state) => {
-            let card = state.filter(card => card.id === this.id)[0];
+            let card = StateHelper.findCardById(state, this.id);
 
             if (card) {
                 this.update({
@@ -110,7 +110,7 @@
         this.url = this.opts.url;
 
         this.opts.store.on('UPDATE_VIEW', (state) => {
-            let card = state.filter(card => card.id === this.opts.id)[0];
+            let card = StateHelper.findCardById(state, this.opts.id);
 
             if (card) {
                 this.update({
@@ -138,7 +138,8 @@
         this.url = this.opts.url;
 
         this.opts.store.on('UPDATE_VIEW', (state) => {
-            let card = state.filter(card => card.id === this.opts.id)[0];
+            let card = StateHelper.findCardById(state, this.opts.id);
+
             if (card) {
                 this.update({
                     url : card.url
