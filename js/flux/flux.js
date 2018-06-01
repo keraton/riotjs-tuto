@@ -1,67 +1,72 @@
 // Flux pattern
 // [Action] -> [Dispatcher] -> [Store] -> [View]
 
-
-// Dispatcher
-var RiotControl = {
-    _stores: [],
-    addStore: function(store) {
-        this._stores.push(store);
-    }
-};
-
-['on','one','off','trigger'].forEach(function(api){
-    RiotControl[api] = function() {
-        var args = [].slice.call(arguments);
-        this._stores.forEach(function(el){
-            el[api].apply(el, args);
-        });
-    };
-});
-
 // Actions Creator
-var Actions =  {
+let Actions =  {
 
     addTodo : function (todo) {
-        RiotControl.trigger('ADD_TODO', todo);
+        Riux.trigger('ADD_TODO' , todo);
     },
 
     initTodo : function () {
-        RiotControl.trigger('INIT_TODO');
+        Riux.trigger('INIT_TODO');
+    }
+};
+
+
+// Dispatcher
+let Riux = {
+    _stores: [],
+    observable: function(store) {
+
+        riot.observable(store);
+
+        this._stores.push(store);
+
+        let state = null;
+
+        // State Reducer
+        store.on('ACTION', function(actionType, value) {
+            console.log("helo");
+            let newState = store.reducer(state, actionType, value);
+
+            store.trigger("UPDATE_VIEW", newState);
+
+            state = newState;
+        });
+
+    },
+
+    trigger: function() {
+        let args = [].slice.call(arguments);
+        this._stores.forEach(function(el){
+            console.log("store");
+            el.trigger.apply(el, ['ACTION', ...args]);
+        });
     }
 };
 
 
 // Store
-var TodoStore = function () {
+let TodoStore = function () {
 
-    // Make this class observable
-    riot.observable(this);
+    // make store observable
+    Riux.observable(this);
 
-    //
-    var self = this;
-    function updateView() {
-        self.trigger("UPDATE_VIEW", state);
-    }
-
-    // Initial state is empty
-    var state = [
-        { name: 'Learn HTML' },
-        { name: 'Learn JavaScript' },
-        { name: 'Learn CSS' }
-    ];
-
-    // State Reducer
-    this.on('ADD_TODO', function(todo) {
-        // No immutability
-        state.push({
-            name : todo
-        });
-        updateView();
-    });
-
-    this.on('INIT_TODO', function() {
-        updateView();
-    });
+    this.reducer = function(initState, actionType, value) {
+        // Switch
+        switch (actionType) {
+            case 'INIT_TODO' :
+                return  [
+                    { name: 'Learn HTML' },
+                    { name: 'Learn JavaScript' },
+                    { name: 'Learn CSS' }
+                ];
+            case 'ADD_TODO' :
+                return  [ ...initState, {name : value}];
+            default:
+                return initState;
+        }
+    };
 
 };

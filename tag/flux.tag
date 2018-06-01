@@ -8,23 +8,13 @@
 
 
     <div>
-        <input ref="newTodo" type="text" placeholder="Add Todo"/> <input type="button" onclick="{addTodo}">
+        <input ref="newTodo" type="text" placeholder="Add Todo"/>
+        <input type="button" onclick="{addTodo}" value="Add Todo">
     </div>
 
 
     <script>
-        let self = this;
-        this.todos = [];
-        this.store = this.opts.store;
-
-        this.store.on("UPDATE_VIEW", function (state) {
-            self.todos = state;
-            self.update();
-        });
-
-        this.on('mount', function() {
-            Actions.initTodo();
-        });
+        this.opts.store.on("UPDATE_VIEW", (state) => this.update({todos : state}));
 
         // Action
         addTodo() {
@@ -34,3 +24,31 @@
     </script>
 
 </todo>
+
+<anotherTodo>
+    <h3>ANOTHER TODO List</h3>
+    <ul>
+        <li each={ todos }>
+            { name }
+        </li>
+    </ul>
+
+
+    <div>
+        <input ref="newTodo" type="text" placeholder="Add Todo"/>
+        <input type="button" onclick="{addTodo}" value="Add Todo">
+    </div>
+
+
+    <script>
+        this.opts.store.on("UPDATE_VIEW", (state) => this.update({todos : state}));
+
+        // Action
+        addTodo() {
+            Actions.addTodo(this.refs.newTodo.value);
+        }
+
+    </script>
+
+
+</anotherTodo>

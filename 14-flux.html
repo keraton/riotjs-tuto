@@ -8,6 +8,7 @@
     <!-- place the custom tag anywhere inside the body -->
     <div class="container">
         <todo></todo>
+        <anotherTodo></anotherTodo>
     </div>
 
     <!-- include the tag -->
@@ -19,12 +20,18 @@
 
     <!-- mount the tag -->
     <script>
-        var todoStore = new TodoStore();
-        RiotControl.addStore(todoStore);
+        let todoStore = new TodoStore();
 
-        riot.mount('todo', {
-            store : todoStore
-        })
+
+        riot.compile(function() {
+            riot.mount('todo', {store: todoStore});
+            riot.mount('anotherTodo', {store: todoStore});
+
+            // Init riot
+            Actions.initTodo();
+        });
+
+
     </script>
 </body>
 </html>
