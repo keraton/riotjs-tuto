@@ -47,8 +47,32 @@ let Riux = {
 };
 
 
-// Store
+// Todo Store
 let TodoStore = function () {
+
+    // make store observable
+    Riux.observable(this);
+
+    this.reducer = function(initState, actionType, value) {
+        // Switch
+        switch (actionType) {
+            case 'INIT_TODO' :
+                return  [
+                    { name: 'Learn HTML' },
+                    { name: 'Learn JavaScript' },
+                    { name: 'Learn CSS' }
+                ];
+            case 'ADD_TODO' :
+                return  [ ...initState, {name : value}];
+            default:
+                return initState;
+        }
+    };
+
+};
+
+// Todo Store
+let AccountStore = function () {
 
     // make store observable
     Riux.observable(this);
