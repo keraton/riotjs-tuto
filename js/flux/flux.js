@@ -36,6 +36,10 @@ let Actions =  {
     changeState : function(id, value) {
         Riux.trigger('CHANGE_STATE_CARD', {id : id, state: value});
     },
+
+    modifyCard : function(id, value, url) {
+        Riux.trigger('MODIFY_CARD', {id : id, state: value, url: url});
+    },
 };
 
 
@@ -120,6 +124,11 @@ let AccountStore = function () {
                 return initState;
             case 'CHANGE_STATE_CARD' :
                 initState.filter(card => card.id === value.id)[0].state = value.state;
+                return initState;
+            case 'MODIFY_CARD' :
+                let card = initState.filter(card => card.id === value.id)[0];
+                card.url = value.url;
+                card.state = value.state;
                 return initState;
             default:
                 return initState;

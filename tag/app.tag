@@ -58,8 +58,8 @@
 
             <div show="{enable}">
                 <div>
-                    <viewCard cardid={id} show="{state === 'VIEW'}"></viewCard>
-                    <modifyCard cardid={id} show="{state === 'MODIFY'}"></modifyCard>
+                    <viewCard id={id} store={store} show="{state === 'VIEW'}"></viewCard>
+                    <modifyCard id={id} store={store} show="{state === 'MODIFY'}"></modifyCard>
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
                     name : card.name,
                     id : card.id,
                     enable : card.enable,
-                    state: card.state
+                    state: card.state,
                 })
             }
 
@@ -101,14 +101,26 @@
 
 <viewCard>
     <h5>View</h5>
+    <div>
+        {url}
+    </div>
     <input type="button" value="Modify" onclick="{modify}"/>
 
     <script>
+        this.url = this.opts.url;
 
-        this.id = this.opts.cardid;
+        this.opts.store.on('UPDATE_VIEW', (state) => {
+            let card = state.filter(card => card.id === this.opts.id)[0];
+
+            if (card) {
+                this.update({
+                    url : card.url
+                })
+            }
+        });
 
         modify(e) {
-            Actions.changeState(this.id, 'MODIFY');
+            Actions.changeState(this.opts.id, 'MODIFY');
         }
 
     </script>
@@ -116,15 +128,26 @@
 
 <modifyCard>
     <h5>Modify</h5>
+    <div >
+        <input id="url" ref="url" type="text" placeholder="Add Card" value="{url}"/>
+    </div>
+
     <input type="button" value="Save"  onclick="{save}"/>
 
     <script>
+        this.url = this.opts.url;
 
-        this.id = this.opts.cardid;
-        console.log(this.id);
+        this.opts.store.on('UPDATE_VIEW', (state) => {
+            let card = state.filter(card => card.id === this.opts.id)[0];
+            if (card) {
+                this.update({
+                    url : card.url
+                })
+            }
+        });
 
         save(e) {
-            Actions.changeState(this.id, 'VIEW');
+            Actions.modifyCard(this.opts.id, 'VIEW', this.refs.url.value);
         }
 
     </script>
