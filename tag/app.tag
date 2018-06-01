@@ -18,29 +18,27 @@
         </li>
     </ul>
 
-    <hr/>
-
     <div ref="cardContainer">
-        <card each={cards} name="{name}" id="{id}"></card>
+        <card each={card in cards} card="{card}" store={parent.store}></card>
     </div>
 
 
     <script>
-
         this.cards = [];
         this.counter = 1;
+        this.store = this.opts.store;
+
+        this.store.on('UPDATE_VIEW', (state) => this.update({cards : state}));
 
 
         addCard() {
-            this.cards.push({name: this.refs.newCard.value, id: this.counter});
+            Actions.addCard(this.refs.newCard.value, this.counter);
             this.refs.newCard.value = null;
             this.counter++;
         }
 
         deleteCard(e) {
-            let cardId = e.item.id;
-            let index = this.cards.findIndex(card => card.id === cardId);
-            this.cards.splice(index, 1);
+            Actions.removeCard(e.item.id);
         }
 
     </script>
@@ -60,24 +58,42 @@
 
             <div show="{enable}">
                 <div>
-                    <viewCard show="{state === 'VIEW'}"></viewCard>
-                    <modifyCard show="{state === 'MODIFY'}"></modifyCard>
+                    <viewCard cardid={id} show="{state === 'VIEW'}"></viewCard>
+                    <modifyCard cardid={id} show="{state === 'MODIFY'}"></modifyCard>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        this.name = this.opts.name;
-        this.id = this.opts.id;
-        this.state = 'VIEW';
+        let card = this.opts.card;
+        this.name = card.name;
+        this.id = card.id;
+        this.enable = card.enable;
+        this.state = card.state;
+
+        this.store = this.opts.store;
+
+        this.store.on('UPDATE_VIEW', (state) => {
+            let card = state.filter(card => card.id === this.id)[0];
+
+            if (card) {
+                this.update({
+                    name : card.name,
+                    id : card.id,
+                    enable : card.enable,
+                    state: card.state
+                })
+            }
+
+        });
 
         toEnable(e) {
-            this.enable = true;
+            Actions.enable(this.id, true);
         }
 
         disable(e) {
-            this.enable = false;
+            Actions.enable(this.id, false);
         }
 
     </script>
@@ -89,9 +105,10 @@
 
     <script>
 
+        this.id = this.opts.cardid;
+
         modify(e) {
-            this.parent.state = 'MODIFY';
-            this.parent.update();
+            Actions.changeState(this.id, 'MODIFY');
         }
 
     </script>
@@ -103,9 +120,11 @@
 
     <script>
 
+        this.id = this.opts.cardid;
+        console.log(this.id);
+
         save(e) {
-            this.parent.state = 'VIEW';
-            this.parent.update();
+            Actions.changeState(this.id, 'VIEW');
         }
 
     </script>
